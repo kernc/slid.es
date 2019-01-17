@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <style>
+      body {font-family: sans-serif}
+      .remark-code, .remark-inline-code { font-family: monospace; }
+      .remark-slide-content {font-size: 1.5em}
+      li {margin-bottom:.2em;}
+      img {max-width:90%}
+      .larger {font-size:2em}
+      .remark-slide-number {font-size:20px}
+      .small {font-size:.7em}
+      
+      .green {color:green}
+      .big {font-size:150%; vertical-align:middle}
+      .reftitle {color:blue; font-style: italic;}
+      .centered-list {display: flex; justify-content: center}
+        .centered-list ul {column-count: 2}
+          .centered-list li {text-align:left}
+      #slide-crossed-alternatives .crossed ul {background:url(crossed-over.png) 0 0/100% 100%}
+      
+      .left-column { width: 49%; float: left }
+      .right-column { width: 49%; float: right }
+      .clear {clear: both}
+      
+      .black {background: black; color: white; padding: 1px 5px}
+      .lime {color:lightgreen}
+      #slide-backtesting-code pre code {font: .64em 'Roboto Mono', monospace}
+      #slide-backtesting-code pre code.hljs {background: white}
+      .slide-aftermath li:nth-child(3) {list-style-type: 'lol. '}
+      .fascist {border:13px solid #a00; border-radius:100%; padding:5px; display:inline-block; transform:rotate(45deg); font-weight:bold}
+      .grey {background: #ddc}
+      
+      .website {height:100%}
+      .website iframe {width:200%; height:190%; transform:scale(.5); position:relative; top:-45%; left:-50%; border:2px solid black}
+      
+      .image img {width:100%; max-width:100%}
+      
+      
+    </style>
+       <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet"> 
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# 3
+
+---
+class: center, middle
+
+# 2
+
+---
+class: center, middle
+
+# 1
+
+---
+class: center
+
+# Docs anyone?
+
+--
+
+##  &nbsp;
+
+##  &nbsp;
+
+## .big.green[✔] No one
+
+---
+class: middle
+
+* Forward A, Lethbridge TC. .reftitle[The relevance of software documentation, tools and technologies: a survey.] In Proceedings of the 2002 ACM symposium on Document engineering 2002 Nov 8 (pp. 26-33). ACM.
+
+* Lethbridge TC, Singer J, Forward A. .reftitle[How software engineers use documentation: The state of the practice.] IEEE software. 2003 Nov 1(6):35-9.
+
+* Souza SC, Anquetil N, Oliveira KM. .reftitle[A study of the documentation essential to software maintenance.] In Proceedings of the 23rd annual international conference on Design of communication: documenting & designing for pervasive information 2005 Sep 21 (pp. 68-75). ACM.
+
+* Briand LC. .reftitle[Software documentation: how much is enough?] In Software Maintenance and Reengineering, 2003. Proceedings. Seventh European Conference on 2003 Mar 26 (pp. 13-15). IEEE.
+
+---
+class: center, larger
+layout: true
+
+# Tools
+
+![](data:image/png;base64,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)
+
+---
+
+---
+
+### Alternatives?
+
+.crossed.centered-list[
+* Doxygen
+* epydoc
+* HeaderDoc
+* pdoc
+* pydoc
+* pydoctor
+* MkDocs
+* NaturalDocs
+]
+
+--
+name: crossed-alternatives
+
+---
+layout: false
+class: larger
+name: ideal
+
+## Be nice if …
+
+* Python 3 compatible
+* simple <code>\`module.identifier\`</code> referencing
+* automagic (public-)API docs
+* common docstring formats: plain text, markdown, numpydoc, Google-style, reST directives
+* support prose (tutorials, examples)
+* modern HTML5 templates
+* dependable (CI)
+
+---
+class: center, middle
+
+### interjection poll
+
+# Markdown .small[vs.] reST
+
+### hands?
+
+---
+class: image, center, middle
+
+```py
+pd.Series([16, 2], index=['Markdown', 'reST']).plot.barh()
+```
+![](vote.png)
+
+---
+class: image, center, middle
+
+### World markup literacy
+
+![](unesco-literacy.png)
+
+.right[©2010 UNESCO]
+
+---
+class: middle
+
+.left-column[
+```markdown
+
+Markdown Example
+================
+
+Subsection Header
+-----------------
+
+* list item 1
+* list item 2
+* list item 3
+
+A block of code:
+
+    code = 'rocks ' * .1e3
+
+A sentence with a link to
+the Linux [kernel] archive.
+
+[kernel]: https://kernel.org
+```
+]
+
+.right-column[
+```text
+
+reST Example
+============
+
+Subsection Header
+-----------------
+
+* list item 1
+* list item 2
+* list item 3
+
+A block of code:
+
+.. code::
+
+   code = 'rocks ' * .1e3
+
+A sentence with a link to
+the Linux `kernel`_ archive.
+
+.. _kernel: https://kernel.org
+```
+]
+
+---
+template: ideal
+
+---
+class: center, middle
+
+# pdoc
+
+---
+
+* project started in 2013
+
+* late 2018 changed stewardship: **@mitmproxy** o/
+--
+
+  * accepted outstanding PRs .big[✔]
+
+--
+
+  * applied .black[black] code formatter for maximum lines touched
+
+--
+
+  * split existing ~1800 SLOCs across 27 modules
+  
+--
+
+  * added dead code routines
+  
+--
+
+  * ~~simplified~~ disabled custom templating
+  
+--
+
+  * broke cross-referencing identifiers
+  
+--
+
+  * finally added some unit tests
+  
+* nothing works anymore
+  
+---
+class: black, center, middle
+
+# ![](backtesting-logo.png) <br>Backtesting.lime[.py]
+
+# &nbsp;
+
+### `pip install backtesting`
+
+---
+class: black, middle
+name: backtesting-code
+
+.left-column[
+```python
+from backtesting import Backtest, Strategy
+from backtesting.lib import crossover
+
+from backtesting.test import SMA, GOOG
+
+
+class SmaCross(Strategy):
+    n1 = 10
+    n2 = 30
+
+    def init(self):
+        C = self.data.Close
+        self.ma1 = self.I(SMA, C, self.n1)
+        self.ma2 = self.I(SMA, C, self.n2)
+
+    def next(self):
+        if crossover(self.ma1, self.ma2):
+            self.buy()
+        elif crossover(self.ma2, self.ma1):
+            self.sell()
+
+
+bt = Backtest(GOOG, SmaCross,
+              cash=10000, commission=.002)
+bt.run()
+bt.plot()
+```
+]
+.right-column[
+```text
+Start                     2004-08-19 00:00:00
+End                       2013-03-01 00:00:00
+Duration                   3116 days 00:00:00
+Exposure [%]                          93.9345
+Equity Final [$]                      52624.3
+Equity Peak [$]                       76908.3
+Return [%]                            426.243
+Buy & Hold Return [%]                 703.458
+Max. Drawdown [%]                    -48.1507
+Avg. Drawdown [%]                    -5.49471
+Max. Drawdown Duration      477 days 00:00:00
+Avg. Drawdown Duration       33 days 00:00:00
+# Trades                                   65
+Win Rate [%]                          46.1538
+Best Trade [%]                        54.0536
+Worst Trade [%]                      -18.8556
+Avg. Trade [%]                        3.04044
+Max. Trade Duration         183 days 00:00:00
+Avg. Trade Duration          46 days 00:00:00
+Expectancy [%]                        8.77469
+SQN                                  0.915532
+Sharpe Ratio                         0.231698
+Sortino Ratio                        0.709671
+Calmar Ratio                        0.0631443
+_strategy              SmaCross(n1=10, n2=30)
+```
+]
+
+.center.clear[
+### `pip install backtesting`
+]
+---
+class: black, center
+
+![](backtesting-plot.png)
+
+### `pip install backtesting`
+
+---
+class: slide-aftermath
+
+1. Open a PR to fix issues
+
+--
+
+2. Get e-mail offering _push access_ if I change my avatar .fascist[卐]
+
+--
+
+3. Refuse
+
+--
+
+4. Fork the project from _before_ their screw-up, fix, enhance, rebrand, relicense & release ...
+
+   <video src="https://media.giphy.com/media/1oFs5EGvPDtzQCCnCH/giphy.mp4"></video>
+
+---
+class: center, middle, grey
+
+# ![](pdoc-logo.png) <br>pdoc3
+
+# &nbsp;
+
+## `pip install pdoc3`
+
+---
+class: image, center, middle, black
+
+![](regex.png)
+
+---
+class: website
+
+<iframe src="https://pdoc3.github.io/pdoc/doc/pdoc/" scrolling="no"></iframe>
+
+---
+class: website
+
+<iframe src="https://en.wikipedia.org/wiki/Pdoc" scrolling="no"></iframe>
+
+---
+class: website
+
+<iframe src="https://wiki.python.org/moin/DocumentationTools" scrolling="no"></iframe>
+
+---
+class: website
+
+<iframe src="https://wiki.pythonde.pysv.org/Python" scrolling="no"></iframe>
+
+---
+class: center, middle, black
+
+# ![](sectalks.png)
+
+### MeetUp / SecTalks-Ljubljana
+
+&nbsp;
+
+Technical .lime[security] talks &
+<br>hands-on security challenges.
+
+---
+class: middle, image
+
+![](stackoverflow.png)
+
+---
+class: middle, image
+
+![](analytics.png)
+
+---
+class: center, middle
+
+# The Final Problem
+
+# &nbsp;
+
+![](github-stars.png)
+
+# &nbsp;
+
+### `pip install pdoc3`<br>`pdoc your_project`
+    </textarea>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remark/0.14.0/remark.min.js"></script>
+    <script>
+var slideshow = remark.create({ratio: '4:3'});
+
+slideshow.on('showSlide', slide => {
+  if (slide.content.toString().includes('<video '))
+    setTimeout(() => {
+      var v = document.querySelector('.remark-visible video');
+      v.currentTime = 0;
+      v.playbackRate = .5;
+      v.play();
+    }, 200);
+});
+    </script>
+  </body>
+</html>
